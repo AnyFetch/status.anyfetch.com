@@ -1,0 +1,5 @@
+# BitData.io
+
+License
+----
+MIT
