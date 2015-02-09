@@ -1,14 +1,18 @@
 <!doctype html>
 <html>
 <head>
-    <title>Status Fetch</title>
+    <title>Status Fetch v1.0</title>
     <script src="dist/js/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="dist/js/flot/jquery.flot.time.js"></script>
+    <script type="text/javascript" src="dist/js/flot/jquery.flot.axislabels.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script src="dist/js/fetchData.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href='dist/css/index.css'>
     <style>
         body {
             padding-top:80px;
@@ -17,5 +21,11 @@
     </style>
 </head>
 <body>
+    <div class='container'>
+        <div class="jumbotron text-center" style='margin-top: 10px'>
+            <h1 style='text-align: left; padding-left: 10px;'>Anyfetch Status</h1>
+        </div>
+        <div id="flot-gcontacts" style="width:600px;height:300px"></div>
+    </div>
 </body>
 </html>
