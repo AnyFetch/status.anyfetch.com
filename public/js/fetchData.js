@@ -12,6 +12,8 @@ jQuery(function() {
   socket.on('urls', function(urls) {
     if(urlsList) {
       dataArray = [];
+      $('#grid-mode').hide();
+      $('#justify-mode').show();
       $('#graph-container').empty();
     }
     urlsList = urls;
@@ -23,22 +25,12 @@ jQuery(function() {
 // Changing grid mode
 //
 
-$('#grid-mode').hide();
+$('#justify-mode').hide();
 
 $("#grid-mode").click(function() {
   $('#grid-mode').hide();
   $('#justify-mode').show();
   $('#graph-container').empty();
-  for(var i = 0; i < dataArray.length; i++) {
-    $('#graph-container').append(dataArray[i].html);
-  }
-});
-
-$("#justify-mode").click(function() {
-  $('#justify-mode').hide();
-  $('#grid-mode').show();
-  $('#graph-container').empty();
-
   for(var i = 0; i < dataArray.length; i++) {
     var html = '';
     html += '<div class=col-md-4>';
@@ -48,15 +40,24 @@ $("#justify-mode").click(function() {
   }
 });
 
+$("#justify-mode").click(function() {
+  $('#justify-mode').hide();
+  $('#grid-mode').show();
+  $('#graph-container').empty();
+  for(var i = 0; i < dataArray.length; i++) {
+    $('#graph-container').append(dataArray[i].html);
+  }
+});
+
 //
 // Slider Handler
 //
 
 $("#slider").slider({
   value: storedValues,
-  min: 50,
+  min: 25,
   max: 500,
-  step: 50,
+  step: 25,
   slide: function(event, ui) {
     $("#slider-value").html(ui.value);
     storedValues = ui.value;
