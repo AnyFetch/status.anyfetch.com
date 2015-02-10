@@ -1,21 +1,21 @@
 {
-  "name": "statusfetch",
+  "name": "status.anyfetch.com",
   "version": "0.0.0",
-  "description": "statusfetch",
+  "description": "status.anyfetch.com",
   "main": "server.js",
   "scripts": {
     "test": "mocha test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Antonhansel/bitdata.git"
+    "url": "https://github.com/anyfetch/status.anyfetch.com.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Antonhansel/bitdata/issues"
+    "url": "https://github.com/anyfetch/status.anyfetch.com/issues"
   },
-  "homepage": "https://github.com/Antonhansel/bitdata",
+  "homepage": "https://github.com/Anyfetch/status.anyfetch.com",
   "dependencies": {
     "async": "^0.9.0",
     "ejs": "^2.2.4",
