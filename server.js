@@ -1,4 +1,5 @@
 // server.js
+var config = require('./lib/config/configuration.js');
 // set up ======================================================================
 // get all the tools we need
 var express  	 = require('express');
@@ -15,8 +16,8 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(express.static(path.join(__dirname, 'public'))); // to get local files
 
 // routes ======================================================================
-require('./lib/app/routes.js')(app); // load our routes and pass in our app
-require('./lib/app/socketHandler.js');
+require('./lib/app/routes.js')(app, config.env); // load our routes and pass in our app
+require('./lib/app/socketHandler.js')(config);
 
 // launch ======================================================================
 app.listen(port);
