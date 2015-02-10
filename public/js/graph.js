@@ -43,7 +43,8 @@ function updateGraphs(data, date) {
       var found = false;
       if(warnings.length === 0) {
         warnings.push([dataArray[i].name, 5]);
-      } else {
+      }
+      else {
         for(var j = 0; j < warnings.length; j++) {
           if(warnings[j][0] === dataArray[i].name) {
             found = true;
@@ -61,11 +62,15 @@ function updateGraphs(data, date) {
 
 function showWarnings() {
   $('#critical-status').empty();
-  if (warnings.length !== 0){
+  if(warnings.length !== 0) {
     $('#critical-status').append('<p>Not Responding: ' + warnings.length + '</p>');
   }
   else {
-    $('#critical-status').append('<p>Everything looks good!</p>');
+    $('#critical-status').append('<p>Everything looks good!</p>Documents pending:</br>');
+    for(var i = 0; i < dataArray.length; i++) {
+      $('#critical-status').append(
+        dataArray[i].dataSet[0].data[dataArray[i].dataSet[0].data.length - 1][1] + ' - ' + dataArray[i].id + '</br>');
+    }
   }
   for(var j = warnings.length - 1; j > -1; j--) {
     $('#critical-status').append(warnings[j][0] + '</br>');
