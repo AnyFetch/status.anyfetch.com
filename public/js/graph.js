@@ -74,7 +74,7 @@ function getOptions() {
     },
     yaxis: {
       min: 0,
-      max: 10000,
+      max: 5000,
       axisLabel: "Documents pending",
       axisLabelUseCanvas: true,
       axisLabelFontSizePixels: 12,
