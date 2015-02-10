@@ -6,10 +6,11 @@ function initGraphs(providers) {
       name: providers[i][0].charAt(0).toUpperCase() + providers[i][0].slice(1) + ' provider - ' + providers[i][1],
       dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
       id: providers[i][0],
-      options: getOptions()
+      options: getOptions(),
+      html: ''
     };
-    var html = "<div class='panel panel-default'><div class='panel-heading'>" + dataSet.name + "</div><div id=flot-" + dataSet.id + " style='height:300px'></div></div>";
-    $('.container').append(html);
+    dataSet.html = generateHtml(dataSet);
+    $('#graph-container').append(dataSet.html);
     dataArray.push(dataSet);
   }
 }
@@ -20,10 +21,19 @@ function updateAll() {
   }
 }
 
+function generateHtml(dataSet) {
+  return ("<div class='panel panel-default'><div class='panel-heading'>" +
+    dataSet.name + "</div><div id=flot-" + dataSet.id +
+    " style='height:300px;'></div></div>");
+}
+
 function updateGraphs(data, date) {
   for(var i = 0; i < dataArray.length; i++) {
     if(dataArray[i].options.yaxis.max < data[dataArray[i].id].pending_documents) {
       dataArray[i].options.yaxis.max = data[dataArray[i].id].pending_documents;
+    }
+    if(dataArray[i].dataSet[0].data.length > storedValues) {
+      dataArray[i].dataSet[0].data.shift();
     }
     dataArray[i].dataSet[0].data.push([date, data[dataArray[i].id].pending_documents]);
   }

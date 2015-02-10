@@ -24,6 +24,6 @@
   ],
   "dependencies": {
     "flot": "~0.8.3",
-    "flot-axislabels": "https://github.com/markrcote/flot-axislabels.git",
+    "flot-axislabels": "https://github.com/markrcote/flot-axislabels.git"
   }
 }
