@@ -1,4 +1,5 @@
 var dataArray = [];
+var warnings = [];
 
 function initGraphs(providers) {
   for(var i = 0; i < providers.length; i++) {
@@ -35,9 +36,46 @@ function updateGraphs(data, date) {
     if(dataArray[i].dataSet[0].data.length > storedValues) {
       dataArray[i].dataSet[0].data.shift();
     }
-    dataArray[i].dataSet[0].data.push([date, data[dataArray[i].id].pending_documents]);
+    if(data[dataArray[i].id].pending_documents !== undefined) {
+      dataArray[i].dataSet[0].data.push([date, data[dataArray[i].id].pending_documents]);
+    }
+    else {
+      var found = false;
+      if(warnings.length === 0) {
+        warnings.push([dataArray[i].name, 5]);
+      } else {
+        for(var j = 0; j < warnings.length; j++) {
+          if(warnings[j][0] === dataArray[i].name) {
+            found = true;
+          }
+        }
+        if(!found) {
+          warnings.push([dataArray[i].name, 5]);
+        }
+      }
+    }
   }
+  showWarnings();
   updateAll();
+}
+
+function showWarnings() {
+  $('#critical-status').empty();
+  if (warnings.length !== 0){
+    $('#critical-status').append('<p>Not Responding: ' + warnings.length + '</p>');
+  }
+  else {
+    $('#critical-status').append('<p>Everything looks good!</p>');
+  }
+  for(var j = warnings.length - 1; j > -1; j--) {
+    $('#critical-status').append(warnings[j][0] + '</br>');
+    if(warnings[j][1] > 0) {
+      warnings[j][1] -= 1;
+    }
+    else {
+      warnings.splice(j, 1);
+    }
+  }
 }
 
 function getOptions() {
@@ -74,7 +112,7 @@ function getOptions() {
     },
     yaxis: {
       min: 0,
-      max: 1500,
+      max: 50,
       axisLabel: "Documents pending",
       axisLabelUseCanvas: true,
       axisLabelFontSizePixels: 12,

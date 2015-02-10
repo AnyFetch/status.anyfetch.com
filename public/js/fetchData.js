@@ -12,6 +12,7 @@ jQuery(function() {
   socket.on('urls', function(urls) {
     if(urlsList) {
       dataArray = [];
+      warnings = [];
       $('#grid-mode').hide();
       $('#justify-mode').show();
       $('#graph-container').empty();
