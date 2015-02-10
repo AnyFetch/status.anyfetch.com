@@ -1,4 +1,11 @@
 .legendLabel
 {
-    color:White;
+	color:White;
+}
+.custom-body {
+	padding-top:80px;
+	background-color: #171d25;
+}
+.page-title {
+	padding-left: 10px;
 }
