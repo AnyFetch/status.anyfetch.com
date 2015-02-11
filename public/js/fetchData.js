@@ -1,17 +1,15 @@
 var urlsList = null;
 var storedValues = 100;
 
-jQuery(function() {
+$(function() {
   var socket = io.connect();
 
   socket.on('savedData', function(res) {
     var date = new Date().getTime();
-    $('#graph-container').append("<img src=loading.gif id='loading-image' style='align:center'>");
     for(var i = res.length - 1; i > -1; i--) {
       date -= 2000;
       updateGraphs(res[i], date, false);
     }
-    $('#loading-image').remove();
   });
 
   socket.on('data', function(res) {
@@ -63,7 +61,6 @@ $("#justify-mode").click(function() {
 //
 // Slider Handler
 //
-
 $("#slider").slider({
   value: storedValues,
   min: 25,

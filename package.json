@@ -7,16 +7,17 @@
     "start": "node bin/server",
     "test": "mocha test",
     "postinstall": "./node_modules/bower/bin/bower install; npm run-script make",
-    "lint": "jshint lib/app app.js && jscs lib/app/ app.js"
+    "lint": "jshint bin lib/ config/ public/ views app.js",
+    "jscs": "jscs bin lib/ config/ public/ views app.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/anyfetch/status.anyfetch.com.git"
+    "url": "https://github.com/Anyfetch/status.anyfetch.com.git"
   },
   "author": "Antonhansel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anyfetch/status.anyfetch.com/issues"
+    "url": "https://github.com/Anyfetch/status.anyfetch.com/issues"
   },
   "homepage": "https://github.com/Anyfetch/status.anyfetch.com",
   "dependencies": {

@@ -17,9 +17,9 @@ function initGraphs(providers) {
 }
 
 function updateAll() {
-  for(var i = 0; i < dataArray.length; i++) {
-    $.plot($('#flot-' + dataArray[i].id), dataArray[i].dataSet, dataArray[i].options);
-  }
+  dataArray.forEach(function(elem){
+    $.plot($('#flot-' + elem.id), elem.dataSet, elem.options);
+  })
 }
 
 function generateHtml(dataSet) {
@@ -29,29 +29,30 @@ function generateHtml(dataSet) {
 }
 
 function updateGraphs(data, date, realtime) {
-  for(var i = 0; i < dataArray.length; i++) {
-    if(dataArray[i].options.yaxis.max < data[dataArray[i].id].pending_documents) {
-      dataArray[i].options.yaxis.max = data[dataArray[i].id].pending_documents;
+  dataArray.forEach(function(item) {
+    if(item.options.yaxis.max < data[item.id].pending_documents) {
+      item.options.yaxis.max = data[item.id].pending_documents;
     }
-    while(dataArray[i].dataSet[0].data.length > storedValues) {
-      dataArray[i].dataSet[0].data.shift();
+    while(item.dataSet[0].data.length > storedValues) {
+      item.dataSet[0].data.shift();
     }
-    if(data[dataArray[i].id].pending_documents > -1) {
-      dataArray[i].dataSet[0].data.push([date, data[dataArray[i].id].pending_documents]);
+    if(data[item.id].pending_documents !== undefined) {
+      item.dataSet[0].data.push([date, data[item.id].pending_documents]);
     }
     else {
       var found = false;
       if(warnings.length === 0) {
-        warnings.push([dataArray[i].name, 5]);
+        warnings.push([item.name, 5]);
       }
       else {
         for(var j = 0; j < warnings.length; j++) {
-          if(warnings[j][0] === dataArray[i].name) {
+          if(warnings[j][0] === item.name) {
             found = true;
           }
         }
         if(!found) {
-          warnings.push([dataArray[i].name, 5]);
+          // where 5 is the number of server ticks before the error can disappear
+          warnings.push([item.name, 5]);
         }
       }
     }
@@ -64,7 +65,7 @@ function updateGraphs(data, date, realtime) {
         warnings.splice(j, 1);
       }
     }
-  }
+  });
   if (realtime) {
     showWarnings();
     updateAll();
@@ -74,14 +75,18 @@ function updateGraphs(data, date, realtime) {
 function showWarnings() {
   $('#critical-status').empty();
   if(warnings.length !== 0) {
+    console.log(warnings.length);
     $('#critical-status').append('<p>Not Responding: ' + warnings.length + '</p>');
+    warnings.forEach(function(item) {
+      $('#critical-status').append(item[0] + '</br>');
+    });
   }
   else {
     $('#critical-status').append('<p>Everything looks good!</p>Documents pending:</br>');
-    for(var i = 0; i < dataArray.length; i++) {
+    dataArray.forEach(function(item) {
       $('#critical-status').append(
-        dataArray[i].dataSet[0].data[dataArray[i].dataSet[0].data.length - 1][1] + ' - ' + dataArray[i].id + '</br>');
-    }
+        item.dataSet[0].data[item.dataSet[0].data.length - 1][1] + ' - ' + item.id + '</br>');
+    });
   }
 }
 

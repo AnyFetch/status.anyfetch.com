@@ -1,3 +1,5 @@
+'use strict';
+
 var config = require('./config.js');
 
 config.urls = config[config.env];
