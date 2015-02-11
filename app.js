@@ -6,7 +6,7 @@ var morgan = require('morgan');
 var path = require('path');
 var express = require('express');
 var app = express.createServer();
-app.listen(process.env.PORT);
+app.listen(config.port);
 var io = require('socket.io').listen(app);
 // configuration ===============================================================
 app.use(morgan('dev')); // log every request to the console
