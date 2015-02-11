@@ -4,7 +4,6 @@ var config = require('./lib/config/configuration.js');
 // get all the tools we need
 var express  	 = require('express');
 var app      	 = express();
-var port     	 = process.env.PORT || 8080;
 var morgan       = require('morgan');
 var path 		 = require('path');
 // configuration ===============================================================
@@ -20,5 +19,5 @@ require('./lib/app/routes.js')(app, config.env); // load our routes and pass in 
 require('./lib/app/socketHandler.js')(config);
 
 // launch ======================================================================
-app.listen(port);
-console.log('Server listening on port ' + port);
+app.listen(config.port);
+console.log('Server listening on port ' + config.port);
