@@ -49,7 +49,8 @@ function updateGraphs(data, date, realtime) {
         if(!warnings.some(function(warning) {
           if (warning[0] === item.name) {
             return true;
-          }})){
+          }
+        })) {
           warnings.push([item.name, 5]);
         }
       }

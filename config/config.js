@@ -1,6 +1,6 @@
 module.exports = {
   env: process.env.NODE_ENV || "staging",
-  timeout: process.env.TIMEOUT || 1,
+  timeout: process.env.TIMEOUT || 1000,
   pollingInterval: process.env.POLLING_INTERVAL || 2000,
   port: process.env.PORT || 8080,
   production: {
