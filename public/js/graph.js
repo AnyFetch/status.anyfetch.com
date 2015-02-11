@@ -28,7 +28,7 @@ function generateHtml(dataSet) {
     " style='height:300px;'></div></div>");
 }
 
-function updateGraphs(data, date) {
+function updateGraphs(data, date, realtime) {
   for(var i = 0; i < dataArray.length; i++) {
     if(dataArray[i].options.yaxis.max < data[dataArray[i].id].pending_documents) {
       dataArray[i].options.yaxis.max = data[dataArray[i].id].pending_documents;
@@ -55,9 +55,20 @@ function updateGraphs(data, date) {
         }
       }
     }
+    for(var j = warnings.length - 1; j > -1; j--) {
+      $('#critical-status').append(warnings[j][0] + '</br>');
+      if(warnings[j][1] > 0) {
+        warnings[j][1] -= 1;
+      }
+      else {
+        warnings.splice(j, 1);
+      }
+    }
   }
-  showWarnings();
-  updateAll();
+  if (realtime) {
+    showWarnings();
+    updateAll();
+  }
 }
 
 function showWarnings() {
@@ -70,15 +81,6 @@ function showWarnings() {
     for(var i = 0; i < dataArray.length; i++) {
       $('#critical-status').append(
         dataArray[i].dataSet[0].data[dataArray[i].dataSet[0].data.length - 1][1] + ' - ' + dataArray[i].id + '</br>');
-    }
-  }
-  for(var j = warnings.length - 1; j > -1; j--) {
-    $('#critical-status').append(warnings[j][0] + '</br>');
-    if(warnings[j][1] > 0) {
-      warnings[j][1] -= 1;
-    }
-    else {
-      warnings.splice(j, 1);
     }
   }
 }

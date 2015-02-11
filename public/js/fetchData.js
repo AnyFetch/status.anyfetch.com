@@ -5,17 +5,18 @@ jQuery(function() {
   var socket = io('http://localhost:8081');
 
   socket.on('savedData', function(res) {
-    console.log('Saved data incoming:' + res.length);
     var date = new Date().getTime();
+    $('#graph-container').append("<img src=loading.gif id='loading-image' style='align:center'>");
     for(var i = res.length - 1; i > -1; i--) {
-      date -= 2;
-      updateGraphs(res[i], date);
+      date -= 2000;
+      updateGraphs(res[i], date, false);
     }
+    $('#loading-image').remove();
   });
 
   socket.on('data', function(res) {
     var date = new Date().getTime();
-    updateGraphs(res, date);
+    updateGraphs(res, date, true);
   });
 
   socket.on('urls', function(urls) {
