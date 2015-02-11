@@ -4,6 +4,15 @@ var storedValues = 100;
 jQuery(function() {
   var socket = io('http://localhost:8081');
 
+  socket.on('savedData', function(res) {
+    console.log('Saved data incoming:' + res.length);
+    var date = new Date().getTime();
+    for(var i = res.length - 1; i > -1; i--) {
+      date -= 2;
+      updateGraphs(res[i], date);
+    }
+  });
+
   socket.on('data', function(res) {
     var date = new Date().getTime();
     updateGraphs(res, date);

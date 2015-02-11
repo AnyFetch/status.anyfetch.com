@@ -33,10 +33,10 @@ function updateGraphs(data, date) {
     if(dataArray[i].options.yaxis.max < data[dataArray[i].id].pending_documents) {
       dataArray[i].options.yaxis.max = data[dataArray[i].id].pending_documents;
     }
-    if(dataArray[i].dataSet[0].data.length > storedValues) {
+    while(dataArray[i].dataSet[0].data.length > storedValues) {
       dataArray[i].dataSet[0].data.shift();
     }
-    if(data[dataArray[i].id].pending_documents !== undefined) {
+    if(data[dataArray[i].id].pending_documents > -1) {
       dataArray[i].dataSet[0].data.push([date, data[dataArray[i].id].pending_documents]);
     }
     else {
