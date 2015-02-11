@@ -2,7 +2,7 @@ var urlsList = null;
 var storedValues = 100;
 
 jQuery(function() {
-  var socket = io('http://localhost:8081');
+  var socket = io.connect();
 
   socket.on('savedData', function(res) {
     var date = new Date().getTime();

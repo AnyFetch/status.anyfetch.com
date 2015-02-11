@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node bin/server",
     "test": "mocha test",
-    "postinstall": "node node_modules/bower/bin/bower install; npm run-script make"
+    "postinstall": "node node_modules/bower/bin/bower install; npm run-script make",
+    "lint": "jshint lib/app app.js && jscs lib/app/ app.js"
   },
   "repository": {
     "type": "git",
@@ -22,13 +23,13 @@
     "async": "^0.9.0",
     "bower": "^1.3.12",
     "ejs": "^2.2.4",
-    "express": "^4.11.2",
+    "express": "2.5.5",
     "http": "0.0.0",
     "morgan": "^1.5.1",
     "path": "^0.11.14",
     "request": "^2.53.0",
+    "socket.io": "^1.3.3",
     "supertest": "^0.15.0",
-    "websocket": "^1.0.17",
     "ws": "^0.7.1"
   },
   "devDependencies": {
