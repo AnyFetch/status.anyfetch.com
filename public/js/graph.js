@@ -45,13 +45,11 @@ function updateGraphs(data, date, realtime) {
         warnings.push([item.name, 5]);
       }
       else {
-        for(var j = 0; j < warnings.length; j++) {
-          if(warnings[j][0] === item.name) {
-            found = true;
-          }
-        }
-        if(!found) {
-          // where 5 is the number of server ticks before the error can disappear
+        // where 5 is the number of server ticks before the error can disappear
+        if(!warnings.some(function(warning) {
+          if (warning[0] === item.name) {
+            return true;
+          }})){
           warnings.push([item.name, 5]);
         }
       }
@@ -75,7 +73,6 @@ function updateGraphs(data, date, realtime) {
 function showWarnings() {
   $('#critical-status').empty();
   if(warnings.length !== 0) {
-    console.log(warnings.length);
     $('#critical-status').append('<p>Not Responding: ' + warnings.length + '</p>');
     warnings.forEach(function(item) {
       $('#critical-status').append(item[0] + '</br>');
