@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node bin/server",
     "test": "mocha test",
-    "postinstall": "node node_modules/bower/bin/bower install; npm run-script make",
+    "postinstall": "./node_modules/bower/bin/bower install; npm run-script make",
     "lint": "jshint lib/app app.js && jscs lib/app/ app.js"
   },
   "repository": {
