@@ -2,18 +2,18 @@ var dataArray = [];
 var warnings = [];
 
 function initGraphs(providers) {
-  for(var i = 0; i < providers.length; i++) {
+  $.each(providers, function(index, value) {
     var dataSet = {
-      name: providers[i][0].charAt(0).toUpperCase() + providers[i][0].slice(1) + ' provider - ' + providers[i][1],
+      name: index.charAt(0).toUpperCase() + index.slice(1) + ' provider - ' + value,
       dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
-      id: providers[i][0],
+      id: index,
       options: getOptions(),
       html: ''
     };
     dataSet.html = generateHtml(dataSet);
     $('#graph-container').append(dataSet.html);
     dataArray.push(dataSet);
-  }
+  });
 }
 
 function updateAll() {
