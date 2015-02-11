@@ -5,10 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node bin/server",
-    "test": "mocha test",
     "postinstall": "./node_modules/bower/bin/bower install; npm run-script make",
-    "lint": "jshint bin lib/ config/ public/ views app.js",
-    "jscs": "jscs bin lib/ config/ public/ views app.js"
+    "lint": "jshint bin lib/ config/ public/ views app.js && jscs bin/ lib/ config/ views/ app.js"
   },
   "repository": {
     "type": "git",
