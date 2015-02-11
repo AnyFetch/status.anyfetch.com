@@ -4,12 +4,10 @@
 var config = require('./config');
 var morgan = require('morgan');
 var path = require('path');
-var webSocketServer = require('ws').Server;
-var http = require('http');
 var express = require('express');
-var app = express();
-var server = http.createServer(app);
-var wss = new webSocketServer({server: server});
+var app = express.createServer();
+app.listen(8080);
+var io = require('socket.io').listen(app);
 // configuration ===============================================================
 app.use(morgan('dev')); // log every request to the console
 app.set('view engine', 'ejs'); // set up ejs for templating
@@ -19,6 +17,6 @@ app.use(express.static(path.join(__dirname, 'public'))); // to get local files
 
 // routes ======================================================================
 require('./lib/app/routes.js')(app, config.env); // load our routes and pass in our app
-require('./lib/app/socketHandler.js')(config, wss);
+require('./lib/app/socketHandler.js')(config, io);
 
-module.exports = server;
+module.exports = app;
