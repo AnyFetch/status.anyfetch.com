@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/anyfetch/status.anyfetch.com.git"
   },
-  "author": "",
+  "author": "Antonhansel",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/anyfetch/status.anyfetch.com/issues"
@@ -20,11 +20,13 @@
     "async": "^0.9.0",
     "ejs": "^2.2.4",
     "express": "^4.11.2",
+    "http": "0.0.0",
     "morgan": "^1.5.1",
     "path": "^0.11.14",
     "request": "^2.53.0",
-    "socket.io": "^1.3.3",
-    "supertest": "^0.15.0"
+    "supertest": "^0.15.0",
+    "websocket": "^1.0.17",
+    "ws": "^0.7.1"
   },
   "devDependencies": {
     "chai": "^1.10.0",
