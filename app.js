@@ -18,6 +18,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes ======================================================================
 require('./lib/app/routes.js')(app, config.env);
-require('./lib/app/socketHandler.js')(config, io);
+require('./lib/app/socket-handler.js')(config, io);
 
 module.exports = app;
