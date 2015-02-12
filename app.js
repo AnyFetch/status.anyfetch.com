@@ -9,6 +9,7 @@ var express = require('express');
 var app = express.createServer();
 app.listen(config.port);
 var io = require('socket.io').listen(app);
+
 // configuration ===============================================================
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');
