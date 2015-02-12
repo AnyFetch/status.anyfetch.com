@@ -1,0 +1,3 @@
+'use strict';
+// Load appjs
+var app = require('../app.js');
