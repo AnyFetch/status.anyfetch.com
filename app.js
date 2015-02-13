@@ -7,7 +7,6 @@ var morgan = require('morgan');
 var path = require('path');
 var express = require('express');
 require('heroku-self-ping')(config.herokuUrl);
-console.log(config.herokuUrl);
 var app = express.createServer();
 app.listen(config.port);
 var io = require('socket.io').listen(app);
