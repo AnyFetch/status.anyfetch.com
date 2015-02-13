@@ -6,9 +6,11 @@ var config = require('./config');
 var morgan = require('morgan');
 var path = require('path');
 var express = require('express');
+require('heroku-self-ping')(config.herokuUrl);
 var app = express.createServer();
 app.listen(config.port);
 var io = require('socket.io').listen(app);
+
 // configuration ===============================================================
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');

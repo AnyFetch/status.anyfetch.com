@@ -1,5 +1,6 @@
 module.exports = {
   env: process.env.NODE_ENV || "staging",
+  herokuUrl: process.env.HEROKU_URL || 'http://localhost:8080',
   timeout: process.env.TIMEOUT || 1000,
   pollingInterval: process.env.POLLING_INTERVAL || 2000,
   port: process.env.PORT || 8080,
