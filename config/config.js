@@ -1,6 +1,6 @@
 module.exports = {
   env: process.env.NODE_ENV || "staging",
-  herokuUrl: process.env.NODE_ENV ? (process.env.NODE_ENV == "staging" ? 'http://anyfetch-status-staging.herokuapp.com' : 'http://anyfetch-status.herokuapp.com') : 'http://locahost:8080',
+  herokuUrl: process.env.NODE_ENV ? (process.env.NODE_ENV === "staging" ? 'http://anyfetch-status-staging.herokuapp.com' : 'http://anyfetch-status.herokuapp.com') : 'http://locahost:8080',
   timeout: process.env.TIMEOUT || 1000,
   pollingInterval: process.env.POLLING_INTERVAL || 2000,
   port: process.env.PORT || 8080,
