@@ -46,7 +46,6 @@ function updateGraphs(data, date, realtime) {
       item.dataSet[0].data.push([date, data[item.id][meaningfullData[source]]]);
     }
     else {
-      var found = false;
       if(warnings.length === 0) {
         warnings.push([item.name, 5]);
       }
