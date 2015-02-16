@@ -29,6 +29,7 @@ function generateHtml(dataSet) {
 }
 
 function updateGraphs(data, date, realtime) {
+  console.log(data);
   dataArray.forEach(function(item) {
     if(item.options.yaxis.max < data[item.id].pending_documents) {
       item.options.yaxis.max = data[item.id].pending_documents;
