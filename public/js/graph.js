@@ -1,5 +1,10 @@
 var dataArray = [];
 var warnings = [];
+var meaningfullData = {
+  hydraters: 'pending',
+  providers: 'pending_documents'
+};
+
 
 function initGraphs(providers) {
   $.each(providers, function(index, value) {
@@ -31,14 +36,14 @@ function generateHtml(dataSet) {
 function updateGraphs(data, date, realtime) {
   console.log(data);
   dataArray.forEach(function(item) {
-    if(item.options.yaxis.max < data[item.id].pending_documents) {
-      item.options.yaxis.max = data[item.id].pending_documents;
+    if(item.options.yaxis.max < data[item.id][meaningfullData[source]]) {
+      item.options.yaxis.max = data[item.id][meaningfullData[source]];
     }
     while(item.dataSet[0].data.length > storedValues) {
       item.dataSet[0].data.shift();
     }
-    if(data[item.id].pending_documents !== undefined) {
-      item.dataSet[0].data.push([date, data[item.id].pending_documents]);
+    if(data[item.id][meaningfullData[source]] !== undefined) {
+      item.dataSet[0].data.push([date, data[item.id][meaningfullData[source]]]);
     }
     else {
       var found = false;
