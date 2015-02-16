@@ -34,7 +34,6 @@ function generateHtml(dataSet) {
 }
 
 function updateGraphs(data, date, realtime) {
-  console.log(data);
   dataArray.forEach(function(item) {
     if(item.options.yaxis.max < data[item.id][meaningfullData[source]]) {
       item.options.yaxis.max = data[item.id][meaningfullData[source]];
@@ -46,22 +45,16 @@ function updateGraphs(data, date, realtime) {
       item.dataSet[0].data.push([date, data[item.id][meaningfullData[source]]]);
     }
     else {
-      if(warnings.length === 0) {
+      if(!warnings.some(function(warning) {
+        if(warning[0] === item.name) {
+          return true;
+        }
+      })) {
         warnings.push([item.name, 5]);
       }
-      else {
-        // where 5 is the number of server ticks before the error can disappear
-        if(!warnings.some(function(warning) {
-          if (warning[0] === item.name) {
-            return true;
-          }
-        })) {
-          warnings.push([item.name, 5]);
-        }
-      }
     }
+    console.log(warnings.length);
     for(var j = warnings.length - 1; j > -1; j--) {
-      $('#critical-status').append(warnings[j][0] + '</br>');
       if(warnings[j][1] > 0) {
         warnings[j][1] -= 1;
       }
