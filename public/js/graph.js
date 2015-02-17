@@ -22,9 +22,9 @@ function initGraphs(providers) {
 }
 
 function updateAll() {
-  dataArray.forEach(function(elem){
+  dataArray.forEach(function(elem) {
     $.plot($('#flot-' + elem.id), elem.dataSet, elem.options);
-  })
+  });
 }
 
 function generateHtml(dataSet) {
