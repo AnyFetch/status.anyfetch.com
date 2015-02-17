@@ -9,7 +9,7 @@ var meaningFulData = {
 function initGraphs(providers) {
   $.each(providers, function(index, value) {
     var dataSet = {
-      name: index.charAt(0).toUpperCase() + index.slice(1) + ' provider - ' + value,
+      name: index.charAt(0).toUpperCase() + index.slice(1) + ' ' + source + ' - ' + value,
       dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
       id: index,
       options: getOptions(),
