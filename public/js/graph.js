@@ -53,16 +53,15 @@ function updateGraphs(data, date, realtime) {
         warnings.push([item.name, 5]);
       }
     }
-    console.log(warnings.length);
-    for(var j = warnings.length - 1; j > -1; j--) {
-      if(warnings[j][1] > 0) {
-        warnings[j][1] -= 1;
-      }
-      else {
-        warnings.splice(j, 1);
-      }
-    }
   });
+  for(var j = warnings.length - 1; j > -1; j--) {
+    if(warnings[j][1] > 0) {
+      warnings[j][1] -= 1;
+    }
+    else {
+      warnings.splice(j, 1);
+    }
+  }
   if (realtime) {
     showWarnings();
     updateAll();
