@@ -4,6 +4,7 @@ var storedValues = 100;
 $(function() {
   var socket = io.connect();
 
+  socket.emit('source', source);
   socket.on('savedData', function(res) {
     var date = new Date().getTime();
     for(var i = res.length - 1; i > -1; i--) {
