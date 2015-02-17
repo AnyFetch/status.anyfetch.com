@@ -1,6 +1,6 @@
 var dataArray = [];
 var warnings = [];
-var meaningfullData = {
+var meaningFulData = {
   hydraters: 'pending',
   providers: 'pending_documents'
 };
@@ -35,14 +35,14 @@ function generateHtml(dataSet) {
 
 function updateGraphs(data, date, realtime) {
   dataArray.forEach(function(item) {
-    if(item.options.yaxis.max < data[item.id][meaningfullData[source]]) {
-      item.options.yaxis.max = data[item.id][meaningfullData[source]];
+    if(item.options.yaxis.max < data[item.id][meaningFulData[source]]) {
+      item.options.yaxis.max = data[item.id][meaningFulData[source]];
     }
     while(item.dataSet[0].data.length > storedValues) {
       item.dataSet[0].data.shift();
     }
-    if(data[item.id][meaningfullData[source]] !== undefined) {
-      item.dataSet[0].data.push([date, data[item.id][meaningfullData[source]]]);
+    if(data[item.id][meaningFulData[source]] !== undefined) {
+      item.dataSet[0].data.push([date, data[item.id][meaningFulData[source]]]);
     }
     else {
       if(!warnings.some(function(warning) {
