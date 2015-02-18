@@ -4,15 +4,11 @@ var storedValues = 100;
 $(function() {
   var socket = io.connect();
 
-  socket.emit('source', source);
-  socket.on('savedData', function(res) {
-    var date = new Date().getTime();
-    for(var i = res.length - 1; i > -1; i--) {
-      date -= 2000;
-      updateGraphs(res[i], date, false);
-    }
+  socket.on('reconnect', function() {
+      socket.emit('source', source);
   });
 
+  socket.emit('source', source);
   socket.on('data', function(res) {
     var date = new Date().getTime();
     updateGraphs(res, date, true);
@@ -22,9 +18,10 @@ $(function() {
     if(urlsList) {
       dataArray = [];
       warnings = [];
-      $('#grid-mode').hide();
-      $('#justify-mode').show();
+      $('#grid-mode').show();
+      $('#justify-mode').hide();
       $('#graph-container').empty();
+      $('#global-graph').empty();
     }
     urlsList = urls;
     initGraphs(urls);
@@ -35,7 +32,7 @@ $(function() {
 // Changing grid mode
 //
 
-$('#justify-mode').hide();
+$('#grid-mode').hide();
 
 $("#grid-mode").click(function() {
   $('#grid-mode').hide();
@@ -58,19 +55,3 @@ $("#justify-mode").click(function() {
     $('#graph-container').append(dataArray[i].html);
   }
 });
-
-//
-// Slider Handler
-//
-$("#slider").slider({
-  value: storedValues,
-  min: 25,
-  max: 500,
-  step: 25,
-  slide: function(event, ui) {
-    $("#slider-value").html(ui.value);
-    storedValues = ui.value;
-  }
-});
-
-$("#slider-value").html($('#slider').slider('value'));
