@@ -22,8 +22,8 @@ $(function() {
     if(urlsList) {
       dataArray = [];
       warnings = [];
-      $('#grid-mode').hide();
-      $('#justify-mode').show();
+      $('#grid-mode').show();
+      $('#justify-mode').hide();
       $('#graph-container').empty();
     }
     urlsList = urls;
@@ -35,7 +35,7 @@ $(function() {
 // Changing grid mode
 //
 
-$('#justify-mode').hide();
+$('#grid-mode').hide();
 
 $("#grid-mode").click(function() {
   $('#grid-mode').hide();
@@ -62,15 +62,3 @@ $("#justify-mode").click(function() {
 //
 // Slider Handler
 //
-$("#slider").slider({
-  value: storedValues,
-  min: 25,
-  max: 500,
-  step: 25,
-  slide: function(event, ui) {
-    $("#slider-value").html(ui.value);
-    storedValues = ui.value;
-  }
-});
-
-$("#slider-value").html($('#slider').slider('value'));

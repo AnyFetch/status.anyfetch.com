@@ -16,7 +16,12 @@ function initGraphs(providers) {
       html: ''
     };
     dataSet.html = generateHtml(dataSet);
-    $('#graph-container').append(dataSet.html);
+    // $('#graph-container').append(dataSet.html);
+    var html = '';
+    html += '<div class=col-md-4>';
+    html += dataSet.html;
+    html += '</div>';
+    $('#graph-container').append(html);
     dataArray.push(dataSet);
   });
 }
