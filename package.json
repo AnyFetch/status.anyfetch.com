@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node bin/server",
-    "postinstall": "./node_modules/bower/bin/bower install; npm run-script make",
+    "postinstall": "./node_modules/bower/bin/bower install",
     "lint": "jshint bin lib/ config/ public/ views app.js && jscs bin/ lib/ config/ views/ app.js"
   },
   "repository": {
