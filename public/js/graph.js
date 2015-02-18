@@ -74,7 +74,11 @@ function updateGraphs(data, date, realtime) {
       }
     }
   });
+
   globalFlot.dataSet[0].data.push([new Date().getTime(), totalDocuments]);
+  if(globalFlot.options.yaxis.max < totalDocuments) {
+    globalFlot.options.yaxis.max = totalDocuments;
+  }
   while(globalFlot.dataSet[0].data.length > storedValues) {
     globalFlot.dataSet[0].data.shift();
   }
