@@ -105,8 +105,8 @@ function showWarnings(){
   });
   var total = 0;
   dataArray.forEach(function(item) {
-    if (item.dataSet[0].data[item.dataSet[0].data.length - 1][1]){
-    total += item.dataSet[0].data[item.dataSet[0].data.length - 1][1];
+    if(item.dataSet[0].data[item.dataSet[0].data.length - 1][1]) {
+      total += item.dataSet[0].data[item.dataSet[0].data.length - 1][1];
     }
   });
   $('#activity').append('<p>' + total + ' document' + (total > 1 ? 's' : '') + ' pending:</p>');
