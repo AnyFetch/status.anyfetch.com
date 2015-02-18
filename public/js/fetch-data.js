@@ -5,14 +5,6 @@ $(function() {
   var socket = io.connect();
 
   socket.emit('source', source);
-  // socket.on('savedData', function(res) {
-  //   var date = new Date().getTime();
-  //   for(var i = res.length - 1; i > -1; i--) {
-  //     date -= 2000;
-  //     updateGraphs(res[i], date, false);
-  //   }
-  // });
-
   socket.on('data', function(res) {
     var date = new Date().getTime();
     updateGraphs(res, date, true);
@@ -58,7 +50,3 @@ $("#justify-mode").click(function() {
     $('#graph-container').append(dataArray[i].html);
   }
 });
-
-//
-// Slider Handler
-//

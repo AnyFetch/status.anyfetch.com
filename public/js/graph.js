@@ -5,8 +5,20 @@ var meaningFulData = {
   providers: 'pending_documents'
 };
 
+var totalDocuments = 0;
+var globalFlot = {
+    name: 'Global Statistics',
+    dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
+    id: 'global-statistics',
+    options: getOptions(),
+    html: "<div class='panel panel-default'><div class='panel-heading'>" +
+    'Global statistics' + "</div><div id=flot-" + 'global-statistics' +
+    " style='height:300px;'></div></div>"
+};
 
 function initGraphs(providers) {
+  $('#global-graph').append(globalFlot.html);
+
   $.each(providers, function(index, value) {
     var dataSet = {
       name: index.charAt(0).toUpperCase() + index.slice(1) + ' ' + source + ' - ' + value,
@@ -27,6 +39,7 @@ function initGraphs(providers) {
 }
 
 function updateAll() {
+  $.plot($('#flot-global-statistics'), globalFlot.dataSet, globalFlot.options);
   dataArray.forEach(function(elem) {
     $.plot($('#flot-' + elem.id), elem.dataSet, elem.options);
   });
@@ -39,6 +52,7 @@ function generateHtml(dataSet) {
 }
 
 function updateGraphs(data, date, realtime) {
+  totalDocuments = 0;
   dataArray.forEach(function(item) {
     if(item.options.yaxis.max < data[item.id][meaningFulData[source]]) {
       item.options.yaxis.max = data[item.id][meaningFulData[source]];
@@ -47,6 +61,7 @@ function updateGraphs(data, date, realtime) {
       item.dataSet[0].data.shift();
     }
     if(data[item.id][meaningFulData[source]] !== undefined) {
+      totalDocuments += [date, data[item.id][meaningFulData[source]]][1];
       item.dataSet[0].data.push([date, data[item.id][meaningFulData[source]]]);
     }
     else {
@@ -59,6 +74,10 @@ function updateGraphs(data, date, realtime) {
       }
     }
   });
+  globalFlot.dataSet[0].data.push([new Date().getTime(), totalDocuments]);
+  while(globalFlot.dataSet[0].data.length > storedValues) {
+    globalFlot.dataSet[0].data.shift();
+  }
   for(var j = warnings.length - 1; j > -1; j--) {
     if(warnings[j][1] > 0) {
       warnings[j][1] -= 1;
@@ -73,21 +92,24 @@ function updateGraphs(data, date, realtime) {
   }
 }
 
-function showWarnings() {
-  $('#critical-status').empty();
-  if(warnings.length !== 0) {
-    $('#critical-status').append('<p>Not Responding: ' + warnings.length + '</p>');
-    warnings.forEach(function(item) {
-      $('#critical-status').append(item[0] + '</br>');
-    });
-  }
-  else {
-    $('#critical-status').append('<p>Everything looks good!</p>Documents pending:</br>');
-    dataArray.forEach(function(item) {
-      $('#critical-status').append(
-        item.dataSet[0].data[item.dataSet[0].data.length - 1][1] + ' - ' + item.id + '</br>');
-    });
-  }
+function showWarnings(){
+  $('#activity').empty();
+  $('#unresponding').empty();
+  $('#unresponding').append('<p>' + warnings.length + ' not Responding:</p>');
+  warnings.forEach(function(item) {
+    $('#unresponding').append(item[0] + '</br>');
+  });
+  var total = 0;
+  dataArray.forEach(function(item) {
+    if (item.dataSet[0].data[item.dataSet[0].data.length - 1][1]){
+    total += item.dataSet[0].data[item.dataSet[0].data.length - 1][1];
+    }
+  });
+  $('#activity').append('<p>' + total + ' document' + (total > 1 ? 's' : '') + ' pending:</p>');
+  dataArray.forEach(function(item) {
+    $('#activity').append(
+      item.dataSet[0].data[item.dataSet[0].data.length - 1][1] + ' - ' + item.id + '</br>');
+  });
 }
 
 function getOptions() {
