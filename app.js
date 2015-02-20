@@ -22,4 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./lib/app/routes.js')(app, config.env);
 require('./lib/app/socket-handler.js')(config, io);
 
+console.log('Server listening on port ' + config.port);
+
 module.exports = app;
