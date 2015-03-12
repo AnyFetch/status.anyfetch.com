@@ -14,7 +14,8 @@ module.exports = {
       'dropbox': 'https://dropbox-staging.anyfetch.com',
       'gcalendar': 'https://gcalendar-staging.anyfetch.com',
       'salesforce': 'https://salesforce-staging.anyfetch.com',
-      'gdrive': 'https://gdrive-staging.anyfetch.com'
+      'gdrive': 'https://gdrive-staging.anyfetch.com',
+      'linkedin': 'https://linkedin-staging.anyfetch.com'
     },
     hydraters: {
       "plaintext": "https://plaintext-staging.anyfetch.com",
@@ -43,7 +44,8 @@ module.exports = {
       'dropbox': 'https://dropbox.anyfetch.com',
       'gcalendar': 'https://gcalendar.anyfetch.com',
       'salesforce': 'https://salesforce.anyfetch.com',
-      'gdrive': 'https://gdrive.anyfetch.com'
+      'gdrive': 'https://gdrive.anyfetch.com',
+      'linkedin': 'https://linkedin.anyfetch.com'
     },
     hydraters: {
       "plaintext": "https://plaintext.anyfetch.com",
