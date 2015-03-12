@@ -2,16 +2,27 @@ var urlsList = null;
 var storedValues = 100;
 
 $(function() {
+  if(source === 'global') {
+    initSocket('providers');
+    initSocket('hydraters');
+  }
+  else {
+    initSocket(source);
+  }
+});
+
+function initSocket(socketSource) {
   var socket = io.connect();
 
+  socket.source = socketSource;
   socket.on('reconnect', function() {
-      socket.emit('source', source);
+    socket.emit('source', socketSource);
   });
 
-  socket.emit('source', source);
+  socket.emit('source', socketSource);
   socket.on('data', function(res) {
     var date = new Date().getTime();
-    updateGraphs(res, date, true);
+    updateGraphs(res, date, true, socket.source);
   });
 
   socket.on('urls', function(urls) {
@@ -26,7 +37,7 @@ $(function() {
     urlsList = urls;
     initGraphs(urls);
   });
-});
+}
 
 //
 // Changing grid mode

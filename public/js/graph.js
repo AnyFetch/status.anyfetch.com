@@ -51,18 +51,18 @@ function generateHtml(dataSet) {
     " style='height:300px;'></div></div>");
 }
 
-function updateGraphs(data, date, realtime) {
+function updateGraphs(data, date, realtime, socketSource) {
   totalDocuments = 0;
   dataArray.forEach(function(item) {
-    if(item.options.yaxis.max < data[item.id][meaningFulData[source]]) {
-      item.options.yaxis.max = data[item.id][meaningFulData[source]];
+    if(item.options.yaxis.max < data[item.id][meaningFulData[socketSource]]) {
+      item.options.yaxis.max = data[item.id][meaningFulData[socketSource]];
     }
     while(item.dataSet[0].data.length > storedValues) {
       item.dataSet[0].data.shift();
     }
-    if(data[item.id][meaningFulData[source]] !== undefined) {
-      totalDocuments += [date, data[item.id][meaningFulData[source]]][1];
-      item.dataSet[0].data.push([date, data[item.id][meaningFulData[source]]]);
+    if(data[item.id][meaningFulData[socketSource]] !== undefined) {
+      totalDocuments += [date, data[item.id][meaningFulData[socketSource]]][1];
+      item.dataSet[0].data.push([date, data[item.id][meaningFulData[socketSource]]]);
     }
     else {
       if(!warnings.some(function(warning) {
