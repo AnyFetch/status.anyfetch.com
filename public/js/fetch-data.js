@@ -2,19 +2,20 @@ var urlsList = null;
 
 $(function() {
   if(source === 'global') {
-    initSocket('providers');
-    initSocket('hydraters');
+    initSocket('providers', 'providers');
+    initSocket('hydraters', 'hydraters');
   }
   else {
-    initSocket(source);
+    initSocket(source, 'DESKTOP');
   }
 });
 
-function initSocket(socketSource) {
+function initSocket(socketSource, mode) {
   var socket = io.connect();
 
   socket.source = socketSource;
-  var graph = new Graph(socket.source);
+  var graph = new Graph(socket.source, mode);
+
   socket.on('reconnect', function() {
     socket.emit('source', socketSource);
   });

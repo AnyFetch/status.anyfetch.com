@@ -1,6 +1,7 @@
 'use strict';
 
-var Graph = function Graph(source) {
+var Graph = function Graph(source, mode) {
+  this.mode = mode;
   this.storedValues = 100;
   this.source = source;
   this.dataArray = [];
@@ -25,30 +26,34 @@ var Graph = function Graph(source) {
 Graph.prototype.initGraphs = function(providers) {
   $('#global-graph').append(this.globalFlot.html);
 
-  $.each(providers, function(index, value) {
-    var dataSet = {
-      name: index.charAt(0).toUpperCase() + index.slice(1) + ' ' + this.source + ' - ' + value,
-      dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
-      id: index,
-      options: this.getOptions(),
-      html: ''
-    };
-    dataSet.html = this.generateHtml(dataSet);
-    // $('#graph-container').append(dataSet.html);
-    var html = '';
-    html += '<div class=col-md-4>';
-    html += dataSet.html;
-    html += '</div>';
-    $('#graph-container').append(html);
-    this.dataArray.push(dataSet);
-  }.bind(this));
+  if(this.mode === 'DESKTOP') {
+    $.each(providers, function(index, value) {
+      var dataSet = {
+        name: index.charAt(0).toUpperCase() + index.slice(1) + ' ' + this.source + ' - ' + value,
+        dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
+        id: index,
+        options: this.getOptions(),
+        html: ''
+      };
+      dataSet.html = this.generateHtml(dataSet);
+      // $('#graph-container').append(dataSet.html);
+      var html = '';
+      html += '<div class=col-md-4>';
+      html += dataSet.html;
+      html += '</div>';
+      $('#graph-container').append(html);
+      this.dataArray.push(dataSet);
+    }.bind(this));
+  }
 };
 
 Graph.prototype.updateAll = function() {
   $.plot($('#flot-global-statistics'), this.globalFlot.dataSet, this.globalFlot.options);
-  this.dataArray.forEach(function(elem) {
-    $.plot($('#flot-' + elem.id), elem.dataSet, elem.options);
-  });
+  if(this.mode === 'DESKTOP') {
+    this.dataArray.forEach(function(elem) {
+      $.plot($('#flot-' + elem.id), elem.dataSet, elem.options);
+    });
+  }
 };
 
 Graph.prototype.generateHtml = function(dataSet) {
