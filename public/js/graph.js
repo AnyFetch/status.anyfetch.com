@@ -6,9 +6,10 @@ var meaningFulData = {
 };
 
 var totalDocuments = 0;
+
 var globalFlot = {
     name: 'Global Statistics',
-    dataSet: [{label: "Documents pending", data: [], color: "#00FF00"}],
+    dataSet: [{label: "Documents pending", data: [], users: -1, color: "#00FF00"}],
     id: 'global-statistics',
     options: getOptions(),
     html: "<div class='panel panel-default'><div class='panel-heading'>" +
@@ -53,6 +54,7 @@ function generateHtml(dataSet) {
 
 function updateGraphs(data, date, realtime) {
   totalDocuments = 0;
+
   dataArray.forEach(function(item) {
     if(item.options.yaxis.max < data[item.id][meaningFulData[source]]) {
       item.options.yaxis.max = data[item.id][meaningFulData[source]];
@@ -63,6 +65,9 @@ function updateGraphs(data, date, realtime) {
     if(data[item.id][meaningFulData[source]] !== undefined) {
       totalDocuments += [date, data[item.id][meaningFulData[source]]][1];
       item.dataSet[0].data.push([date, data[item.id][meaningFulData[source]]]);
+      if(data[item.id].users) {
+        item.dataSet[0].users = data[item.id].users.pending;
+      }
     }
     else {
       if(!warnings.some(function(warning) {
@@ -104,15 +109,17 @@ function showWarnings(){
     $('#unresponding').append(item[0] + '</br>');
   });
   var total = 0;
+  var totalUsers = -1;
   dataArray.forEach(function(item) {
     if(item.dataSet[0].data[item.dataSet[0].data.length - 1][1]) {
       total += item.dataSet[0].data[item.dataSet[0].data.length - 1][1];
+      totalUsers += item.dataSet[0].users;
     }
   });
-  $('#activity').append('<p>' + total + ' document' + (total > 1 ? 's' : '') + ' pending:</p>');
+  $('#activity').append('<p>' + total + ' document' + (total > 1 ? 's' : '') + ' pending ' + (totalUsers >= 0 ? 'for ' + totalUsers + ' users' : '') + '</p>');
   dataArray.forEach(function(item) {
     $('#activity').append(
-      item.dataSet[0].data[item.dataSet[0].data.length - 1][1] + ' - ' + item.id + '</br>');
+      item.dataSet[0].data[item.dataSet[0].data.length - 1][1] + ' - ' + item.id + (totalUsers >= 0 ? ' - (' + item.dataSet[0].users + ' user(s))' : '') + '</br>');
   });
 }
 
